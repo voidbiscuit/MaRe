@@ -33,13 +33,12 @@ public class DataMaRe {
         columns = headers.length; // Number of Columns is number of Column Names
         this.data = new ArrayList<>();
         for (String column : headers)
-            this.data.add(new Series(column, Object.class));
+            this.data.add(new Series(column));
         String[] fragments;
         for (String record : data) {
             fragments = record.split(regex_split);
-            if (fragments.length == columns)
-                for (int i = 0; i < columns; i++)
-                    this.data.get(i);
+            for (int i = 0; i < fragments.length; i++)
+                this.data.get(i).add(fragments[i]);
         }
     }
 
@@ -49,13 +48,20 @@ public class DataMaRe {
         StringBuilder output = new StringBuilder();
         // Header
         output.append(String.format("\n\n-- %s\n%d records\n", file_name, data.size()));
+        output.append("\n\t-");
+        for (int column = 0; column < columns; column++)
+            output.append(String.format("%20s", data.get(column).header()));
+        output.append("\n\t-");
+        for (int column = 0; column < columns; column++)
+            output.append(String.format("%20s", data.get(column).getType()));
+        output.append("\n\t-");
         // For every stored record
         for (int record = 0; record < max; record++) {
             // Print a new line
             output.append("\n\t|");
             // Print out each fragment, 20 wide
             for (int column = 0; column < columns; column++)
-                output.append(String.format("%20s", data.get(record).get(column)));
+                output.append(String.format("%20s", data.get(column).getString(record)));
         }
         System.out.print(String.format("%150s", output.toString()));
     }

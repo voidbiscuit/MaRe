@@ -20,7 +20,8 @@ public class FileLoader {
     public FileLoader(String directory) {
         // Load directory oas files
         setDirectory(directory);
-        files = new ArrayList<>();
+        updateDir();
+        loadFiles();
     }
 
     public void setDirectory(String directory) {
@@ -34,6 +35,10 @@ public class FileLoader {
     public void updateDir() {
         // Return all files and folders in directory
         file_names = directory.list();
+    }
+
+    public String[] listDir() {
+        return file_names;
     }
 
     public void loadFiles() {
@@ -56,6 +61,7 @@ public class FileLoader {
                 if (buffer == null) break;
                 data.add(buffer);
             }
+            System.out.println("Read File " + file_name);
             return data;
         } catch (IOException e) {
             System.err.println("Problem reading file " + file_name);
@@ -64,7 +70,7 @@ public class FileLoader {
     }
 
     public ArrayList getFile(int index) {
-        if (index < 0 || index > files.size())
+        if (index >= 0 && index < files.size())
             return files.get(index);
         return null;
     }
