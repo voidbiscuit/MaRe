@@ -65,7 +65,11 @@ public class Series {
         } catch (NumberFormatException e) {
         }
         // Return String
-        return val.toString();
+        String val_string = val.toString();
+        if (val_string.matches("\\s") || val_string.isEmpty())
+            return null;
+        return val;
+
     }
 
     public String header() {
@@ -84,11 +88,11 @@ public class Series {
     }
 
     public String getString(int index) {
-        try {
-            return get(index).toString();
-        } catch (NullPointerException e) {
-            return "";
-        }
+        Object value = get(index);
+        if (value == null || value.toString().isEmpty())
+            return "(null)";
+        return value.toString();
+
     }
 
     public void set(int index, Object val) {

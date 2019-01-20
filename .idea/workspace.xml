@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="47ebf9f5-b0cf-4fc6-92a7-809fdb7538c4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Timothy_Nicholls.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spec/CS3AC16 Assignment Tutorial Step-by_step Guide &amp; Recap.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Spec/coursework-info-slides.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/AComp_Passenger_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/AComp_Passenger_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FileLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/FileLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MaRe/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/MaRe/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/DataMaRe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/DataMaRe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data/Series/Series.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/Series/Series.java" afterDir="false" />
     </list>
@@ -23,7 +22,7 @@
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
+              <caret line="15" column="25" lean-forward="true" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -34,7 +33,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FileLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
+            <state relative-caret-position="-354">
               <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -47,10 +46,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data/DataMaRe.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="63" selection-start-line="63" selection-end-line="63" />
+            <state relative-caret-position="258">
+              <caret line="30" column="85" selection-start-line="30" selection-start-column="85" selection-end-line="30" selection-end-column="85" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#1301#1302#0" expanded="true" />
+                <element signature="e#1380#1381#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -59,8 +60,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/data/Series/Series.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="117" column="34" selection-start-line="117" selection-start-column="34" selection-end-line="117" selection-end-column="34" />
+            <state relative-caret-position="37">
+              <caret line="106" column="46" lean-forward="true" selection-start-line="106" selection-start-column="46" selection-end-line="106" selection-end-column="46" />
               <folding>
                 <element signature="e#223#224#0" expanded="true" />
                 <element signature="e#260#261#0" expanded="true" />
@@ -68,8 +69,8 @@
                 <element signature="e#418#419#0" expanded="true" />
                 <element signature="e#445#446#0" expanded="true" />
                 <element signature="e#1344#1345#0" expanded="true" />
-                <element signature="e#1804#1805#0" expanded="true" />
-                <element signature="e#3106#3107#0" expanded="true" />
+                <element signature="e#1926#1927#0" expanded="true" />
+                <element signature="e#3251#3252#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,6 +91,18 @@
             <state relative-caret-position="34">
               <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/data/AComp_Passenger_data.csv">
+          <provider selected="true" editor-type-id="csv-text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="7" lean-forward="true" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+            </state>
+          </provider>
+          <provider editor-type-id="csv-table-editor">
+            <state showInfoPanel="true" rowLines="3" />
           </provider>
         </entry>
       </file>
@@ -116,15 +129,15 @@
         <option value="$PROJECT_DIR$/src/Test.java" />
         <option value="$PROJECT_DIR$/data/AComp_Passenger_data.csv" />
         <option value="$PROJECT_DIR$/src/FileLoader.java" />
-        <option value="$PROJECT_DIR$/src/data/DataMaRe.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/data/DataMaRe.java" />
         <option value="$PROJECT_DIR$/src/data/Series/Series.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="725" />
-    <option name="y" value="-17" />
+    <option name="x" value="180" />
+    <option name="y" value="-16" />
     <option name="width" value="943" />
     <option name="height" value="1087" />
   </component>
@@ -145,6 +158,11 @@
               <item name="MaRe" type="b2602c69:ProjectViewProjectNode" />
               <item name="MaRe" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MaRe" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MaRe" type="462c0819:PsiDirectoryNode" />
+              <item name="Spec" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MaRe" type="b2602c69:ProjectViewProjectNode" />
@@ -174,13 +192,14 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548016990616" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548019099946" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Users\timun\IdeaProjects\MaRe\Spec" />
       <recent name="F:\Users\timun\IdeaProjects\mAPP\MaRe\data" />
     </key>
   </component>
@@ -225,7 +244,7 @@
       <workItem from="1545870386020" duration="230000" />
       <workItem from="1546035066084" duration="4585000" />
       <workItem from="1546120351674" duration="8595000" />
-      <workItem from="1547914126111" duration="13470000" />
+      <workItem from="1547914126111" duration="15565000" />
     </task>
     <task id="LOCAL-00001" summary="Sexy file loading and displaying">
       <created>1545870486717</created>
@@ -241,15 +260,21 @@
       <option name="project" value="LOCAL" />
       <updated>1547936220533</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Data converting optional overloads done, it's sexy">
+      <created>1548017038594</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1548017038594</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39305000" />
+    <option name="totallyTimeSpent" value="41400000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26332623" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -288,7 +313,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Sexy file loading and displaying" />
     <MESSAGE value="Series with data type" />
-    <option name="LAST_COMMIT_MESSAGE" value="Series with data type" />
+    <MESSAGE value="Data converting optional overloads done, it's sexy" />
+    <option name="LAST_COMMIT_MESSAGE" value="Data converting optional overloads done, it's sexy" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/Series.java" />
@@ -343,8 +369,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/data/AComp_Passenger_data.csv">
       <provider selected="true" editor-type-id="csv-text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="43" lean-forward="true" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
+        <state relative-caret-position="153">
+          <caret line="9" column="7" lean-forward="true" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
         </state>
       </provider>
       <provider editor-type-id="text-editor">
@@ -363,21 +389,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/FileLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1064#1065#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <caret line="15" column="25" lean-forward="true" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -386,18 +401,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/data/DataMaRe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
+        <state relative-caret-position="258">
+          <caret line="30" column="85" selection-start-line="30" selection-start-column="85" selection-end-line="30" selection-end-column="85" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#1301#1302#0" expanded="true" />
+            <element signature="e#1380#1381#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/FileLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-354">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1064#1065#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/data/Series/Series.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="117" column="34" selection-start-line="117" selection-start-column="34" selection-end-line="117" selection-end-column="34" />
+        <state relative-caret-position="37">
+          <caret line="106" column="46" lean-forward="true" selection-start-line="106" selection-start-column="46" selection-end-line="106" selection-end-column="46" />
           <folding>
             <element signature="e#223#224#0" expanded="true" />
             <element signature="e#260#261#0" expanded="true" />
@@ -405,8 +433,8 @@
             <element signature="e#418#419#0" expanded="true" />
             <element signature="e#445#446#0" expanded="true" />
             <element signature="e#1344#1345#0" expanded="true" />
-            <element signature="e#1804#1805#0" expanded="true" />
-            <element signature="e#3106#3107#0" expanded="true" />
+            <element signature="e#1926#1927#0" expanded="true" />
+            <element signature="e#3251#3252#0" expanded="true" />
           </folding>
         </state>
       </provider>

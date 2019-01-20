@@ -27,9 +27,9 @@ public class DataMaRe {
     }
 
     private void loadData(ArrayList<String> data) {
-        // Data is an array of records
-        rows = data.size(); // Rows is the number of records
+        // Data is an array of recordss
         headers = data.remove(0).split(regex_split); // The first row is Column Names
+        rows = data.size(); // Rows is the number of record
         columns = headers.length; // Number of Columns is number of Column Names
         this.data = new ArrayList<>();
         for (String column : headers)
@@ -42,28 +42,51 @@ public class DataMaRe {
         }
     }
 
-
     public void displayData() {
-        int max = 5;
+        displayData(rows);
+    }
+
+    public void displayData(int count) {
+        displayData(0, count);
+    }
+
+    public void displayData(int start, int end) {
+        // If the user is stupid, return
+        if (start >= end)
+            return;
+        // Set the start and end values to sensible
+        if (start < 0) start = 0;
+        if (end < 0) return;
+        if (start > rows - 1) return;
+        if (end < rows - 1) end = rows - 1;
+
+        // Prepare output
         StringBuilder output = new StringBuilder();
-        // Header
-        output.append(String.format("\n\n-- %s\n%d records\n", file_name, data.size()));
-        output.append("\n\t-");
+        // Metadata
+        output.append(String.format("" +
+                        "\n-- %s" + // -- Filename
+                        "\n%d records" // x records
+                , file_name, data.size()
+        ));
+        // Column Headers
+        output.append("\n--------.");
         for (int column = 0; column < columns; column++)
-            output.append(String.format("%20s", data.get(column).header()));
-        output.append("\n\t-");
+            output.append(String.format("%20s |", data.get(column).header()));
+        // Column Datatypes
+        output.append("\n\t\t|");
         for (int column = 0; column < columns; column++)
-            output.append(String.format("%20s", data.get(column).getType()));
-        output.append("\n\t-");
-        // For every stored record
-        for (int record = 0; record < max; record++) {
-            // Print a new line
-            output.append("\n\t|");
-            // Print out each fragment, 20 wide
+            output.append(String.format("%20s |", data.get(column).getType()));
+        // Spacer
+        output.append("\n\t\t|");
+        // Print Records
+        for (int record = start; record < end; record++) {
+            // New Record
+            output.append(String.format("\n%4d\t|", record + 1));
+            // Print each column 20 wide
             for (int column = 0; column < columns; column++)
-                output.append(String.format("%20s", data.get(column).getString(record)));
+                output.append(String.format("%20s |", data.get(column).getString(record)));
         }
-        System.out.print(String.format("%150s", output.toString()));
+        System.out.print(String.format("%s", output.toString()));
     }
 
 
