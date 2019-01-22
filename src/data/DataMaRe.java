@@ -90,4 +90,13 @@ public class DataMaRe {
     }
 
 
+    public void removeNA() {
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; columns++)
+                if (data.get(column).get(row) == null)
+                    for (int i = 0; i < columns; i++)
+                        data.get(i).set(i, "nopp");
+        }
+    }
+
 }
