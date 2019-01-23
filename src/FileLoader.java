@@ -3,14 +3,16 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class FileLoader {
     // Directory name and Directory
     private String directory_name;
     private File directory;
     // Loaded and Stored Files
-    private String[] file_names;
-    private ArrayList<ArrayList> files;
+    private ArrayList<String> file_names;
+    private ArrayList<String> files;
 
     public FileLoader() {
         // Load Files with using dir "data"
@@ -18,58 +20,56 @@ public class FileLoader {
     }
 
     public FileLoader(String directory) {
-        // Load directory oas files
-        setDirectory(directory);
-        updateDir();
+        updateDirectory(directory);
         loadFiles();
     }
 
-    public void setDirectory(String directory) {
-        directory.replace("/", "\\");
-        if (!(directory.endsWith("\\")))
-            directory += "/";
-        directory_name = directory;
-        this.directory = new File(directory);
+    public void updateDirectory(String directory_name) {
+        directory_name.replace("/", "\\");
+        if (!(directory_name.endsWith("\\")))
+            directory_name += "/";
+        this.directory_name = directory_name;
+        this.directory = new File(directory_name);
+        updateDirectoryListing();
     }
 
-    public void updateDir() {
-        // Return all files and folders in directory
-        file_names = directory.list();
+    public void updateDirectoryListing() {
+        file_names = new ArrayList<>(Arrays.asList(Objects.requireNonNull(directory.list())));
     }
 
-    public String[] listDir() {
+    public ArrayList<String> listDirectory() {
         return file_names;
     }
 
     public void loadFiles() {
         // Load File Names
         files = new ArrayList<>();
-        updateDir();
+        updateDirectoryListing();
         // Load files as ArrayList, containing ArrayList of lines
         for (String file_name : file_names)
             files.add(readFile(file_name));
     }
 
-    private ArrayList<String> readFile(String file_name) {
-        ArrayList<String> data = new ArrayList<>();
-        data.add(file_name);
+    private String readFile(String file_name) {
+        StringBuilder data = new StringBuilder();
+        data.append(file_name);
         try {
             BufferedReader r = new BufferedReader(new FileReader(new File(directory_name + file_name)));
             String buffer;
             while (true) {
                 buffer = r.readLine();
                 if (buffer == null) break;
-                data.add(buffer);
+                data.append("\n");
+                data.append(buffer);
             }
-            System.out.println("Read File " + file_name);
-            return data;
+            return data.toString();
         } catch (IOException e) {
             System.err.println("Problem reading file " + file_name);
-            return new ArrayList<>();
+            return "";
         }
     }
 
-    public ArrayList getFile(int index) {
+    public String getFile(int index) {
         if (index >= 0 && index < files.size())
             return files.get(index);
         return null;
