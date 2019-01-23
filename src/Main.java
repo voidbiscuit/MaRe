@@ -1,28 +1,29 @@
 import data.DataMaRe;
-import mapreduce.JobHandler;
+import mapreduce.jobs.JobList;
+import mapreduce.jobs.tasks.Sort;
 
 public class Main {
-
+    static FileLoader files;
+    static DataMaRe dataMaRe;
 
     public static void main(String[] args) {
+        getFile();
         TestDataMaRe();
     }
 
+    static void getFile() {
+        files = new FileLoader();
+        dataMaRe = new DataMaRe(files.getFile(0));
+    }
+
     static void TestDataMaRe() {
-        FileLoader files = new FileLoader();
-        DataMaRe dataMaRe = new DataMaRe(files.getFile(0));
-        dataMaRe.displayData(0,10);
-    }
-
-    static void TestJobs() {
-        JobHandler jobHandler = new JobHandler();
-        //jobHandler.testJobs(dataMaRe);
-    }
-
-    static void TestDataFrame() {
-        FileLoader files = new FileLoader();
-        DataMaRe dm = new DataMaRe(files.getFile(0));
-        dm.displayData(0, 10);
+        dataMaRe.displayData();
+        JobList jobList = new JobList();
+        jobList.addJob("Tim", new Sort(dataMaRe, "Something Else"));
+        jobList.getJob("Tim").getJob().run();
+        while (jobList.getJob("Tim").getJob().getResult() == null) ;
+        dataMaRe = (DataMaRe) jobList.getJob("Tim").getJob().getResult();
+        dataMaRe.displayData();
     }
 
 

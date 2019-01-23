@@ -55,6 +55,10 @@ public class DataMaRe {
         data.add(new Record(record.split(regex_split), types));
     }
 
+    public void displayData() {
+        displayData(0, getRows());
+    }
+
     public void displayData(int start, int end) {
         StringBuilder output = new StringBuilder();
         output.append(String.format("\n-- %s", file_name));
@@ -87,12 +91,55 @@ public class DataMaRe {
         return records.toString();
     }
 
-    private int getRows() {
+    private boolean isRow(int index) {
+        return index >= 0 && index < data.size();
+    }
+
+    private boolean isColumn(int index) {
+        return index >= 0 && index < headers.length;
+    }
+
+    public Record getRecord(int index) {
+        if (!isRow(index)) return null;
+        return data.get(index);
+    }
+
+    public int getRows() {
         return data.size();
     }
 
-    private int getColumns() {
+    public int getColumn(String column_name) {
+        for (int header = 0; header < headers.length; header++)
+            if (column_name.equals(headers[header])) return header;
+        return -1;
+    }
+
+    public String getColumn(int column) {
+        return headers[column];
+    }
+
+    public int getColumns() {
         return headers.length;
+    }
+
+    public boolean compare(int indexA, int indexB, int column) {
+        if (!isRow(indexA) || !isRow(indexB)) return false;
+        if (!isColumn(column)) return false;
+        if (types[column] == Integer.class)
+            return (int) data.get(indexA).get(column) > (int) data.get(indexB).get(column);
+        if (types[column] == Float.class)
+            return (float) data.get(indexA).get(column) > (float) data.get(indexB).get(column);
+        if (types[column] == String.class)
+            return data.get(indexB).get(column).toString().compareTo(data.get(indexA).get(column).toString()) > 0;
+        return false;
+    }
+
+    public void swap(int indexA, int indexB) {
+        if (!isRow(indexA) || !isRow(indexB))
+            return;
+        Record temp = data.get(indexA);
+        data.set(indexA, data.get(indexB));
+        data.set(indexB, temp);
     }
 
     private String[] typeNames() {

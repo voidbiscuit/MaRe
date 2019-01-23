@@ -1,33 +1,27 @@
 package mapreduce.jobs;
 
-class Job {
+import mapreduce.jobs.tasks.DataMaReProcess;
+
+public class Job {
     private String name;
     private Thread thread;
+    private DataMaReProcess job;
 
-    Job(String name, Runnable job) {
+    Job(String name, DataMaReProcess job) {
         this.name = name;
-        this.thread = new Thread(job);
-        printStatus("created");
+        this.job = job;
+        this.thread = new Thread(this.job);
     }
 
     String getName() {
         return name;
     }
 
-
-    void startJob() {
-        printStatus("starting");
-        thread.start();
-        printStatus("started");
+    public DataMaReProcess getJob() {
+        return job;
     }
 
-    void stopJob() {
-        printStatus("interrupting");
-        thread.interrupt();
-        printStatus("interrupted");
-    }
-
-    void printStatus(String status) {
+    public void printStatus(String status) {
         System.out.println(String.format("[%s] %s", name, status));
     }
 }

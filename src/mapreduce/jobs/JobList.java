@@ -1,5 +1,7 @@
 package mapreduce.jobs;
 
+import mapreduce.jobs.tasks.DataMaReProcess;
+
 import java.util.ArrayList;
 
 public class JobList {
@@ -9,7 +11,7 @@ public class JobList {
         joblist = new ArrayList<>();
     }
 
-    public void addJob(String name, Runnable job) {
+    public void addJob(String name, DataMaReProcess job) {
         if (getJob(name) == null)
             joblist.add(new Job(name, job));
     }
@@ -23,13 +25,5 @@ public class JobList {
             if (job.getName().equals(name))
                 return job;
         return null;
-    }
-
-    public void startJob(String name) {
-        getJob(name).startJob();
-    }
-
-    public void stopJob(String name) {
-        getJob(name).stopJob();
     }
 }

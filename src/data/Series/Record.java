@@ -27,7 +27,7 @@ public class Record {
 
     public String view(String prefix, String format, int index) {
         StringBuilder output = new StringBuilder();
-        output.append(String.format(prefix, index));
+        output.append(String.format(prefix, index + 1));
         for (int field = 0; field < data.length; field++)
             output.append(String.format(
                     format,
