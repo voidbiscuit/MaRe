@@ -1,16 +1,23 @@
-package mapreduce.jobs.tasks;
+package DataMaRe.jobs.tasks;
 
-import data.DataMaRe;
+import DataMaRe.data.DataMaRe;
 
 public abstract class DataMaReProcess implements Runnable {
-    DataMaRe dataMaRe;
+    // Data
+    protected DataMaRe dataMaRe;
     private volatile boolean
             running = false,
             paused = true,
             finished = false;
     private final Object pauselock = new Object();
 
-    public DataMaReProcess(DataMaRe dataMaRe) {
+    protected DataMaReProcess() {
+
+    }
+
+    public void setDataMaRe(DataMaRe dataMaRe) {
+        if (this.dataMaRe != null)
+            return;
         this.dataMaRe = dataMaRe;
     }
 
@@ -53,15 +60,16 @@ public abstract class DataMaReProcess implements Runnable {
             }
     }
 
-    void finished() {
+    protected void finished() {
         finished = true;
         stop();
     }
 
-    void process() {
-        //debug
-        if (true) System.out.println(finished ? "finished" : "working");
-
+    protected void process() {
+        if (dataMaRe == null) {
+            System.err.println("Null DataMaRe - Exiting");
+            stop();
+        }
     }
 
 
@@ -71,6 +79,6 @@ public abstract class DataMaReProcess implements Runnable {
     }
 
     Object finishedResult() {
-        return null;
+        return dataMaRe;
     }
 }

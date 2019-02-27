@@ -1,6 +1,5 @@
-import data.DataMaRe;
-import mapreduce.jobs.JobList;
-import mapreduce.jobs.tasks.Sort;
+import DataMaRe.data.DataMaRe;
+import DataMaRe.jobs.tasks.edit.Sort;
 
 public class Main {
     static FileLoader files;
@@ -13,16 +12,18 @@ public class Main {
 
     static void getFile() {
         files = new FileLoader();
-        dataMaRe = new DataMaRe(files.getFile(0));
+        dataMaRe = new DataMaRe(files.getFile(1));
     }
 
     static void TestDataMaRe() {
         dataMaRe.displayData();
-        JobList jobList = new JobList();
-        jobList.addJob("Tim", new Sort(dataMaRe, "Something Else"));
-        jobList.getJob("Tim").getJob().run();
-        while (jobList.getJob("Tim").getJob().getResult() == null) ;
-        dataMaRe = (DataMaRe) jobList.getJob("Tim").getJob().getResult();
+        for (int i = 0; i < dataMaRe.getRows() / 4; i++)
+            dataMaRe.processFragment_Edit(new Sort("Some Thing"), 4 * i, 4 * (i + 1)-1);
+        while (dataMaRe.isProcessing()) {
+            if (dataMaRe.updateFragments())
+                System.out.println("Process Done");
+        }
+        System.err.println("\n\nDone\n\n");
         dataMaRe.displayData();
     }
 

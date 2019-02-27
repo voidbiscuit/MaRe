@@ -1,4 +1,4 @@
-package data.Series;
+package DataMaRe.data.Series;
 
 public class Record {
 
