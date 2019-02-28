@@ -22,14 +22,12 @@ public class Sort extends DataMaReProcess_Edit {
     @Override
     protected void process() {
         super.process();
-        // Sort
-        for (int cycle = 0; cycle < dataMaRe.getRows() - 1; cycle++) {
-            for (int index = 0; index < dataMaRe.getRows() - cycle - 1; index++) {
+        for (int cycle = 0; cycle < dataMaRe.getRows(); cycle++) {
+            for (int index = 0; index < dataMaRe.getRows() - cycle; index++) {
                 if (dataMaRe.compare(index, index + 1, column))
                     dataMaRe.swap(index, index + 1);
             }
         }
-        finished();
     }
 }
 

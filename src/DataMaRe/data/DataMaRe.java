@@ -2,7 +2,7 @@ package DataMaRe.data;
 
 
 import DataMaRe.data.Series.Record;
-import DataMaRe.jobs.JobList;
+import DataMaRe.jobs.tasks.DataMaReProcess;
 import DataMaRe.jobs.tasks.DataMaReProcess_Edit;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class DataMaRe {
 
     // Constants
-    private static final String
+    public static final String
             regex_split = ",",
             prefix = "\n\t%10s\t|",
             format = "\t%20s |";
@@ -22,8 +22,7 @@ public class DataMaRe {
     private ArrayList<Record> data;
     private ArrayList<DataMaRe_Fragment> fragments;
 
-
-    DataMaRe(String name, String[] headers, Class[] types, ArrayList<Record> data, ArrayList<DataMaRe_Fragment> fragments, JobList processes) {
+    DataMaRe(String name, String[] headers, Class[] types, ArrayList<Record> data, ArrayList<DataMaRe_Fragment> fragments) {
         this.name = name;
         this.headers = headers;
         this.types = types;
@@ -32,7 +31,7 @@ public class DataMaRe {
     }
 
     public DataMaRe(String name, String[] headers, Class[] types, ArrayList<Record> data) {
-        this(name, headers, types, data, new ArrayList<>(), new JobList());
+        this(name, headers, types, data, new ArrayList<>());
     }
 
 
@@ -45,9 +44,10 @@ public class DataMaRe {
         types = getTypes(file_contents.remove(0).split(regex_split));
         // Load DataMaRe.data
         data = new ArrayList<>();
-        for (String record : file_contents)
-            addRecord(record);
-        System.out.println("Created File");
+        for (String record : file_contents) {
+            if (!record.equals(""))
+                addRecord(record);
+        }
         fragments = new ArrayList<>();
     }
 
@@ -56,6 +56,10 @@ public class DataMaRe {
         for (String type : types)
             classTypes.add(getType(type));
         return classTypes.toArray(new Class[0]);
+    }
+
+    public Class getType(int index) {
+        return types[index];
     }
 
 
@@ -69,7 +73,6 @@ public class DataMaRe {
                 if (types[column] == Float.class) {
                     Float.parseFloat(record[column]);
                 }
-
                 if (types[column] == String.class) {
                     record[column].toString();
                 }
@@ -106,11 +109,23 @@ public class DataMaRe {
         data.remove(record);
     }
 
+    public void waitForFragments() {
+        while (isProcessing()) ;
+    }
+
     public void displayData() {
+        if (isProcessing()) {
+            System.err.println("Still Processing");
+            return;
+        }
         displayData(0, getRows());
     }
 
     public void displayData(int start, int end) {
+        if (isProcessing()) {
+            System.err.println("Still Processing");
+            return;
+        }
         StringBuilder output = new StringBuilder();
         output.append(String.format("\n-- %s", name));
         output.append(String.format("\n#%d records", data.size()));
@@ -207,29 +222,30 @@ public class DataMaRe {
     private boolean makeFragment(int start, int end) {
         for (DataMaRe_Fragment fragment : fragments)
             if ((fragment.getStart() <= start && start <= fragment.getEnd()) ||
-                (fragment.getStart() <= end && end <= fragment.getEnd()))
+                (fragment.getStart() <= end && end <= fragment.getEnd())) {
+                System.err.println(String.format("WARNING FRAGMENT NOT CREATED [%d-%d OVERLAPS %d-%d]", start, end, fragment.getStart(), fragment.getEnd()));
                 return false;
+            }
         fragments.add(new DataMaRe_Fragment(this, start, end));
-        System.out.println("Fragment Created " + start + "-" + end);
+        //System.err.println("Fragment Created " + start + "-" + end);
         return true;
     }
 
     public void processFragment_Edit(DataMaReProcess_Edit process) {
-        processFragment_Edit(process, 0, getRows());
+        processFragment_Edit(process, 0, getRows() - 1);
     }
 
     public void processFragment_Edit(DataMaReProcess_Edit process, int start, int end) {
         // Fix Params
         start = start < 0 ? 0 : start > getRows() - 1 ? getRows() - 1 : start;
-        end = end > getRows() - 1 ? getRows() - 1 : end < start ? start : end;
+        end = end > getRows() - 1 ? getRows() - 1 : end <= start ? start : end;
 
-        if (!makeFragment(start, end)) {
-            System.err.println("Fragment Creation Failed " + start + "-" + end);
+        if (!makeFragment(start, end)) return;
+        DataMaRe_Fragment fragment = getFragment(start, end);
+        if (fragment == null) {
+            System.err.println("Null Fragment");
             return;
         }
-        DataMaRe_Fragment fragment = getFragment(start, end);
-        if (fragment == null)
-            return;
         fragment.runProcess(process);
     }
 
@@ -237,37 +253,53 @@ public class DataMaRe {
         boolean updates = false;
         boolean fixed = false;
         while (!fixed) {
-            fixed = false;
+            fixed = true;
             for (int fragment = 0; fragment < fragments.size(); fragment++) {
-                updates |= updateFragment(fragments.get(fragment).getStart(), fragments.get(fragment).getEnd());
-                fixed |= updates;
+                if (updateFragment_Edit(fragments.get(fragment))) {
+                    updates = true;
+                    fixed = false;
+                    break;
+                }
             }
         }
         return updates;
     }
 
-    private boolean updateFragment(int start, int end) {
-        DataMaRe_Fragment fragment = getFragment(start, end);
-        if (fragment.getFragment() == null)
+    private boolean updateFragment_Edit(DataMaRe_Fragment fragment) {
+        if (fragment.getResult() == null)
             return false;
-        int delta = (end - start) - fragment.getFragment().getRows();
-        data.removeAll(data.subList(start, end + 1));
-        data.addAll(start, fragment.getFragment().getData());
+        //System.err.println("Reloading Fragment " + fragment.getStart() + "-" + fragment.getEnd());
+        int delta = (fragment.getEnd() - fragment.getStart()) - fragment.getResult().getRows();
+        data.removeAll(getData(fragment.getStart(), fragment.getEnd()));
+        data.addAll(fragment.getStart(), fragment.getResult().getData());
         fragments.remove(fragment);
         for (DataMaRe_Fragment each_fragment : fragments)
-            if (each_fragment.getStart() >= end)
+            if (each_fragment.getStart() > fragment.getStart())
                 each_fragment.shift(delta);
         return true;
     }
 
+    public void fragmentise_processFragment_Edit(int fragment_size, DataMaReProcess_Edit process) {
+        System.err.println(String.format("\n\n###Fragmenting"));
+        for (int fragment = 0; fragment < getRows() - 1; fragment += fragment_size) {
+            DataMaReProcess new_process = process;
+            DataMaReProcess_Edit x = (DataMaReProcess_Edit) new_process;
+            processFragment_Edit(x, fragment, fragment + fragment_size - 1);
+        }
+        waitForFragments();
+        System.err.println("###Finished\n");
+    }
+
     DataMaRe_Fragment getFragment(int start, int end) {
         for (DataMaRe_Fragment fragment : fragments)
-            if (fragment.getStart() == start && fragment.getEnd() == end)
+            if (fragment.getStart() == start && fragment.getEnd() == end) {
                 return fragment;
+            }
         return null;
     }
 
     public boolean isProcessing() {
+        updateFragments();
         return fragments.size() > 0;
     }
 

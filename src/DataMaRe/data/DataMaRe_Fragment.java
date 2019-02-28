@@ -10,9 +10,12 @@ public class DataMaRe_Fragment {
     private Job process;
 
     DataMaRe_Fragment(DataMaRe data, int start, int end) {
-        this.start = start < 0 ? 0 : start > data.getRows() - 1 ? data.getRows() - 1 : start;
-        this.end = end > data.getRows() ? data.getRows() : end < start ? start : end;
-        this.fragment = new DataMaRe(data.getName(), data.getHeaders(), data.getTypes(), data.getData(this.start, this.end));
+        start = start < 0 ? 0 : start > data.getRows() - 1 ? data.getRows() - 1 : start;
+        end = end > data.getRows() - 1 ? data.getRows() - 1 : end <= start ? start : end;
+        this.start = start;
+        this.end = end;
+        this.fragment = new DataMaRe(data.getName(), data.getHeaders(), data.getTypes(), data.getData(start, end));
+
     }
 
     int getStart() {
@@ -24,9 +27,9 @@ public class DataMaRe_Fragment {
     }
 
     void shift(int delta) {
-        this.start -= delta;
-        this.end -= delta;
-        this.process.updateName(String.format("%s [%d-%d]", fragment.getName(), this.start, this.end));
+        this.start += delta;
+        this.end += delta;
+        this.process.updateName(String.format("%s [%d-%d]", fragment.getName(), getStart(), getEnd()));
     }
 
 
@@ -35,17 +38,26 @@ public class DataMaRe_Fragment {
             System.err.println("Process Creation Failed");
             return;
         }
-        this.process = new Job(String.format("%s [%d-%d]", fragment.getName(), this.start, this.end), process, this.fragment);
-        this.process.getJob().run();
+        this.process = new Job(String.format("%s [%d-%d]", fragment.getName(), getStart(), getEnd()), process, this.fragment);
+    }
+
+    void exitProcess() {
+        this.process.kill();
     }
 
 
-    DataMaRe getFragment() {
+    DataMaRe getResult() {
         if (process == null)
             return null;
-        DataMaRe result = (DataMaRe) process.getJob().getResult();
+        DataMaRe result = (DataMaRe) process.getReturnValue();
         if (result == null) return null;
-        return result;
+        this.fragment = result;
+        exitProcess();
+        return getFragment();
+    }
+
+    DataMaRe getFragment() {
+        return this.fragment;
     }
 
 }

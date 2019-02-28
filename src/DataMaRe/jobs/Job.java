@@ -3,16 +3,20 @@ package DataMaRe.jobs;
 import DataMaRe.data.DataMaRe;
 import DataMaRe.jobs.tasks.DataMaReProcess;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class Job {
     private String name;
-    private DataMaReProcess job;
-    private Thread process;
+    private Future<Object> returnValue;
+    private ExecutorService service = Executors.newCachedThreadPool();
 
     public Job(String name, DataMaReProcess job, DataMaRe dataMaRe) {
         this.name = name;
-        this.job = job;
-        this.job.setDataMaRe(dataMaRe);
-        process = new Thread(job);
+        job.setDataMaRe(dataMaRe);
+        returnValue = service.submit(job);
     }
 
     String getName() {
@@ -24,11 +28,24 @@ public class Job {
     }
 
     public boolean isFinished() {
-        return getJob().getResult() != null;
+        try {
+            returnValue.get();
+            return true;
+        } catch (InterruptedException | ExecutionException e) {
+            return false;
+        }
     }
 
-    public DataMaReProcess getJob() {
-        return job;
+    public Object getReturnValue() {
+        try {
+            return returnValue.get();
+        } catch (InterruptedException | ExecutionException e) {
+            return null;
+        }
+    }
+
+    public void kill() {
+        this.service.shutdown();
     }
 
 }
