@@ -3,13 +3,13 @@ package DataMaRe.jobs.tasks;
 import DataMaRe.data.DataMaRe;
 
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
 
-public abstract class DataMaReProcess implements Callable<Object> {
+public abstract class DataMaReProcess_MaRe extends DataMaReProcess {
     // Data
     protected DataMaRe dataMaRe;
+    protected ArrayList[] result;
 
-    protected DataMaReProcess() {
+    protected DataMaReProcess_MaRe() {
 
     }
 
@@ -21,15 +21,13 @@ public abstract class DataMaReProcess implements Callable<Object> {
 
     }
 
-    protected Object getResult() {
-        return dataMaRe;
+    protected ArrayList[] getResult() {
+        return result;
     }
 
     @Override
     public Object call() throws Exception {
-        //System.err.println("Process Started");
         process();
-        //System.err.println("Process Ended");
         return getResult();
     }
 }

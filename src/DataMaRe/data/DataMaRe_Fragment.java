@@ -1,7 +1,7 @@
 package DataMaRe.data;
 
 import DataMaRe.jobs.Job;
-import DataMaRe.jobs.tasks.DataMaReProcess_Edit;
+import DataMaRe.jobs.tasks.DataMaReProcess;
 
 public class DataMaRe_Fragment {
 
@@ -33,7 +33,7 @@ public class DataMaRe_Fragment {
     }
 
 
-    void runProcess(DataMaReProcess_Edit process) {
+    void runProcess(DataMaReProcess process) {
         if (this.process != null || this.fragment == null) {
             System.err.println("Process Creation Failed");
             return;
@@ -46,15 +46,18 @@ public class DataMaRe_Fragment {
     }
 
 
-    DataMaRe getResult() {
+    Object getResult() {
         if (process == null)
             return null;
-        DataMaRe result = (DataMaRe) process.getReturnValue();
-        if (result == null) return null;
-        this.fragment = result;
+        Object result = process.getReturnValue();
+        if (process.getReturnValue().getClass() == DataMaRe.class) {
+            if (result == null) return null;
+            this.fragment = (DataMaRe) result;
+        }
         exitProcess();
-        return getFragment();
+        return result;
     }
+
 
     DataMaRe getFragment() {
         return this.fragment;

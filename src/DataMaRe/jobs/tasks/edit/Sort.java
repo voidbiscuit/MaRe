@@ -22,6 +22,7 @@ public class Sort extends DataMaReProcess_Edit {
     @Override
     protected void process() {
         super.process();
+        System.err.println("Sort by " + columnName);
         for (int cycle = 0; cycle < dataMaRe.getRows(); cycle++) {
             for (int index = 0; index < dataMaRe.getRows() - cycle; index++) {
                 if (dataMaRe.compare(index, index + 1, column))
@@ -29,5 +30,6 @@ public class Sort extends DataMaReProcess_Edit {
             }
         }
     }
+
 }
 
