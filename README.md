@@ -1,4 +1,5 @@
-# MaRe
+# NightMaRe
 Advanced Computing Map Reduce in Java
 
-It's DataMaRe (Night)MaRe (<b>Ma</b>p<b>Re</b>duce)
+NightMaRe/DataMaRe is a (<b>Ma</b>p<b>Re</b>duce) system built to emulate distributed computing
+It uses multiple fragments and threads to emulate a multiple machines.
