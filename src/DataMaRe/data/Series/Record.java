@@ -1,4 +1,4 @@
-package data.Series;
+package DataMaRe.data.Series;
 
 public class Record {
 
@@ -39,6 +39,7 @@ public class Record {
 
     public Object get(int index) {
         if (!inBounds(index)) return null;
+        if(data[index]==null) System.err.println("NULL");
         return data[index];
     }
 

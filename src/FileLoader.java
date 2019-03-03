@@ -15,7 +15,7 @@ public class FileLoader {
     private ArrayList<String> files;
 
     public FileLoader() {
-        // Load Files with using dir "data"
+        // Load Files with using dir "DataMaRe.data"
         this("data");
     }
 
