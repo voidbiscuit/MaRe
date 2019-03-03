@@ -14,16 +14,27 @@ public class FileLoader {
     private ArrayList<String> file_names;
     private ArrayList<String> files;
 
+    /**
+     * Constructor
+     */
     public FileLoader() {
         // Load Files with using dir "DataMaRe.data"
         this("data");
     }
 
+    /**
+     * Constructor
+     * @param directory directory to load data from
+     */
     public FileLoader(String directory) {
         updateDirectory(directory);
         loadFiles();
     }
 
+    /**
+     * Update the directory to use
+     * @param directory_name new directory name
+     */
     public void updateDirectory(String directory_name) {
         directory_name.replace("/", "\\");
         if (!(directory_name.endsWith("\\")))
@@ -33,14 +44,24 @@ public class FileLoader {
         updateDirectoryListing();
     }
 
+    /***
+     * Get files from new directory
+     */
     public void updateDirectoryListing() {
         file_names = new ArrayList<>(Arrays.asList(Objects.requireNonNull(directory.list())));
     }
 
+    /**
+     * Return files in the directory
+     * @return filenames
+     */
     public ArrayList<String> listDirectory() {
         return file_names;
     }
 
+    /**
+     * Load all files from the directory
+     */
     public void loadFiles() {
         // Load File Names
         files = new ArrayList<>();
@@ -50,6 +71,11 @@ public class FileLoader {
             files.add(readFile(file_name));
     }
 
+    /**
+     * Read each file from the directory.
+     * @param file_name the name of the file
+     * @return String contents of the file
+     */
     private String readFile(String file_name) {
         StringBuilder data = new StringBuilder();
         data.append(file_name);
@@ -69,6 +95,22 @@ public class FileLoader {
         }
     }
 
+    /**
+     * Get the file contents of the specified file
+     * @param filename name of file.
+     * @return file
+     */
+    public String getFile(String filename) {
+        for (int filename_id = 0; filename_id < files.size(); filename_id++)
+            if (filename.equals(file_names.get(filename_id))) return getFile(filename_id);
+        return null;
+    }
+
+    /**
+     * Get the file contents of the specified file
+     * @param index file index
+     * @return file
+     */
     public String getFile(int index) {
         if (index >= 0 && index < files.size())
             return files.get(index);

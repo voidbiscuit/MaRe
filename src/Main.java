@@ -6,26 +6,50 @@ import DataMaRe.jobs.tasks.edit.Sort;
 import DataMaRe.jobs.tasks.mapreduce.Reduce;
 
 public class Main {
+    // Data
     static FileLoader files;
     static DataMaRe dataMaRe;
 
+    /**
+     * Datamare by Tim
+     * @param args none
+     */
     public static void main(String[] args) {
+        // Get all files
         files = new FileLoader();
+        // Run test
         TestDataMaRe();
     }
 
+    /**
+     * Get specified file from files
+     * @param filename name of file
+     * @return file
+     */
+    static DataMaRe getFile(String filename) {
+        return new DataMaRe(files.getFile(filename));
+    }
+
+    /**
+     * Get specified file from files
+     * @param file file index
+     * @return file
+     */
     static DataMaRe getFile(int file) {
         return new DataMaRe(files.getFile(file));
     }
 
 
+    /**
+     * Test to run on DataMaRe
+     */
     static void TestDataMaRe() {
         // Set the Main File as Erroneous Data
-        dataMaRe = getFile(1);
+        dataMaRe = getFile("AComp_Passenger_data.csv");
 
         // PROCESSING
 
-        // Remove Null Values then wait
+        // Remove Null Values then waitx
         dataMaRe.processFragment(new RemoveNULL());
         dataMaRe.waitForFragments();
 
@@ -41,7 +65,7 @@ public class Main {
         dataMaRe.waitForFragments();
 
         // Remove Invalid Values
-        DataMaRe airports = getFile(4);
+        DataMaRe airports = getFile("Top30_airports_LatLong.csv");
         dataMaRe.processFragment(new RemoveEXIST(airports, "Airport", "Origin"));
         dataMaRe.waitForFragments();
         // Remove Invalid Values

@@ -25,6 +25,11 @@ public abstract class DataMaReProcess_MaRe extends DataMaReProcess {
         return result;
     }
 
+    /**
+     * Override of call, returns an object, not datamare
+     * @return
+     * @throws Exception
+     */
     @Override
     public Object call() throws Exception {
         process();

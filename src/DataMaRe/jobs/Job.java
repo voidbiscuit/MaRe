@@ -13,6 +13,12 @@ public class Job {
     private Future<Object> returnValue;
     private ExecutorService service = Executors.newCachedThreadPool();
 
+    /**
+     * Create a job with a name, process, and data to act upon
+     * @param name name of job
+     * @param job process to run
+     * @param dataMaRe data to run on
+     */
     public Job(String name, DataMaReProcess job, DataMaRe dataMaRe) {
         this.name = name;
         job.setDataMaRe(dataMaRe);
@@ -27,6 +33,10 @@ public class Job {
         this.name = name;
     }
 
+    /**
+     * Check if the job is finished
+     * @return status of job
+     */
     public boolean isFinished() {
         try {
             returnValue.get();
@@ -36,6 +46,10 @@ public class Job {
         }
     }
 
+    /**
+     * Get return value from job
+     * @return result
+     */
     public Object getReturnValue() {
         try {
             return returnValue.get();
@@ -44,6 +58,9 @@ public class Job {
         }
     }
 
+    /**
+     * kill a job
+     */
     public void kill() {
         this.service.shutdown();
     }
