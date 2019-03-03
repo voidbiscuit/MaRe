@@ -13,8 +13,8 @@ public class DataMaRe {
     // Constants
     public static final String // Formatting Strings
             regex_split = ",",
-            prefix = "\n\t%10s\t|",
-            format = "\t%20s |";
+            prefix = "\n\t%12s\t|",
+            format = "\t%25s |";
     // Individual Data
     private String name;
     private String[] headers;
@@ -24,10 +24,11 @@ public class DataMaRe {
 
     /**
      * Constructor for DataMaRe
-     * @param name DataMaRe name
-     * @param headers Column names
-     * @param types Column types
-     * @param data Records
+     *
+     * @param name      DataMaRe name
+     * @param headers   Column names
+     * @param types     Column types
+     * @param data      Records
      * @param fragments Any current fragments
      */
     DataMaRe(String name, String[] headers, Class[] types, ArrayList<Record> data, ArrayList<DataMaRe_Fragment> fragments) {
@@ -40,10 +41,11 @@ public class DataMaRe {
 
     /**
      * Constructor for DataMaRe
-     * @param name DataMaRe name
+     *
+     * @param name    DataMaRe name
      * @param headers Column names
-     * @param types Column types
-     * @param data Records
+     * @param types   Column types
+     * @param data    Records
      */
     public DataMaRe(String name, String[] headers, Class[] types, ArrayList<Record> data) {
         this(name, headers, types, data, new ArrayList<>());
@@ -52,6 +54,7 @@ public class DataMaRe {
 
     /**
      * Constructor for DDataMaRe loading from a file
+     *
      * @param file_data file data to load including file name, headers, types, and records
      */
     public DataMaRe(String file_data) {
@@ -72,6 +75,7 @@ public class DataMaRe {
 
     /**
      * Translate the types of the data from String to Class (from top of file_data)
+     *
      * @param types String array of types
      * @return Class array of types
      */
@@ -84,6 +88,7 @@ public class DataMaRe {
 
     /**
      * Get the type of a column
+     *
      * @param index Column index
      * @return Class of the specified column
      */
@@ -93,6 +98,7 @@ public class DataMaRe {
 
     /**
      * Check that a record matches the specified types of the headers.
+     *
      * @param record Specified record to confirm
      * @return Whether the record matches the data types of each column
      */
@@ -107,7 +113,6 @@ public class DataMaRe {
                     Float.parseFloat(record[column]);
                 }
                 if (types[column] == String.class) {
-                    record[column].toString();
                 }
             } catch (NumberFormatException ignore) {
                 return false;
@@ -121,6 +126,7 @@ public class DataMaRe {
 
     /**
      * Convert from string to class, hardcoded
+     *
      * @param type String type
      * @return Class
      */
@@ -137,6 +143,7 @@ public class DataMaRe {
 
     /**
      * Add a Record to the DataMaRe
+     *
      * @param record Record to add
      */
     public void addRecord(String record) {
@@ -148,6 +155,7 @@ public class DataMaRe {
 
     /**
      * Remove record from the datamare
+     *
      * @param record Index of record to delete
      */
     public void removeRecord(int record) {
@@ -175,8 +183,9 @@ public class DataMaRe {
 
     /**
      * Display each record of the DataMaRe formatted.
+     *
      * @param start start index of the display
-     * @param end end index of the display
+     * @param end   end index of the display
      */
     public void displayData(int start, int end) {
         // Wait for DataMaRe to finish processing
@@ -199,10 +208,11 @@ public class DataMaRe {
 
     /**
      * Line Formatting
+     *
      * @param rowInfoFormat Format for info
-     * @param rowInfoData Info
-     * @param lineFormat Format for line data
-     * @param lineData Line data
+     * @param rowInfoData   Info
+     * @param lineFormat    Format for line data
+     * @param lineData      Line data
      * @return Formatted string
      */
     private String lineFormat(String rowInfoFormat, String rowInfoData, String lineFormat, String[] lineData) {
@@ -219,8 +229,9 @@ public class DataMaRe {
 
     /**
      * Check indices are in bounds of the DataMaRe
+     *
      * @param start start index
-     * @param end end index
+     * @param end   end index
      * @return whether in bounds
      */
     private boolean checkBounds(int start, int end) {
@@ -229,8 +240,9 @@ public class DataMaRe {
 
     /**
      * View the DataMaRe
-     * @param start start index
-     * @param end end index
+     *
+     * @param start  start index
+     * @param end    end index
      * @param prefix line prefix
      * @param format data format
      * @return Formatted String
@@ -239,13 +251,15 @@ public class DataMaRe {
         if (checkBounds(start, end)) return "";
         // Get rows
         StringBuilder records = new StringBuilder();
-        for (int record = start; record < end; record++)
-            records.append(data.get(record).view(prefix, format, record));
+        for (int record = start; record < end; record++) {
+            records.append(data.get(record).view(prefix, format, record, headers));
+        }
         return records.toString();
     }
 
     /**
      * Check if a record is legitimate
+     *
      * @param index index to check
      * @return whether it's legitimate
      */
@@ -255,6 +269,7 @@ public class DataMaRe {
 
     /**
      * Check a value is within column bounds
+     *
      * @param index index of column
      * @return whether column index is in bounds
      */
@@ -264,6 +279,7 @@ public class DataMaRe {
 
     /**
      * Get a Record from the DataMaRe
+     *
      * @param index row to get the record from
      * @return the record
      */
@@ -274,6 +290,7 @@ public class DataMaRe {
 
     /**
      * Get number of rows
+     *
      * @return number of rows
      */
     public int getRows() {
@@ -282,6 +299,7 @@ public class DataMaRe {
 
     /**
      * Get column index
+     *
      * @param column_name name of column
      * @return index of collumn specified
      */
@@ -293,6 +311,7 @@ public class DataMaRe {
 
     /**
      * Get column name
+     *
      * @param column column index
      * @return Name of specified column
      */
@@ -302,6 +321,7 @@ public class DataMaRe {
 
     /**
      * Get number of columns
+     *
      * @return number of columns
      */
     public int getColumns() {
@@ -310,6 +330,7 @@ public class DataMaRe {
 
     /**
      * Compare 2 values in the DataMaRe by column values
+     *
      * @param indexA index of first compare
      * @param indexB index of second compare
      * @param column column to compare
@@ -329,6 +350,7 @@ public class DataMaRe {
 
     /**
      * Swap 2 Records
+     *
      * @param indexA first index to swap
      * @param indexB second index to swap
      */
@@ -342,6 +364,7 @@ public class DataMaRe {
 
     /**
      * Get names of types
+     *
      * @return names of types as string array
      */
     private String[] typeNames() {
@@ -357,8 +380,9 @@ public class DataMaRe {
 
     /**
      * Create a fragment
+     *
      * @param start start index of fragment
-     * @param end end index of fragment
+     * @param end   end index of fragment
      * @return True if fragment is created else false
      */
     private boolean makeFragment(int start, int end) {
@@ -375,6 +399,7 @@ public class DataMaRe {
 
     /**
      * Start a process on a fragment
+     *
      * @param process process to start
      */
     public void processFragment(DataMaReProcess process) {
@@ -383,9 +408,10 @@ public class DataMaRe {
 
     /**
      * Start a process on a fragment
+     *
      * @param process process to start
-     * @param start start index of new fragment
-     * @param end end index of new fragment
+     * @param start   start index of new fragment
+     * @param end     end index of new fragment
      */
     public void processFragment(DataMaReProcess process, int start, int end) {
         // Fix Params
@@ -403,6 +429,7 @@ public class DataMaRe {
 
     /**
      * Check for finished fragments
+     *
      * @return True if there were any updates
      */
     public boolean updateFragments() {
@@ -422,7 +449,7 @@ public class DataMaRe {
                     // If the fragment returns a DataMaRe fragment, replace the old data
                     if (fragment.getResult().getClass() == DataMaRe.class)
                         updateFragment_Edit(fragment);
-                    // If it's an arraylist, build the output as a string, and print it
+                        // If it's an arraylist, build the output as a string, and print it
                     else if (fragment.getResult().getClass() == ArrayList[].class) {
                         ArrayList[] results = (ArrayList[]) fragment.getResult();
                         for (int i = 0; i < results[0].size(); i++) {
@@ -445,6 +472,7 @@ public class DataMaRe {
 
     /**
      * Update a DataMaRe fragment once it's finished
+     *
      * @param fragment the fragment to update
      * @return whether the fragment successfully updated
      */
@@ -467,8 +495,9 @@ public class DataMaRe {
 
     /**
      * Get a fragment from the datamare
+     *
      * @param start start index
-     * @param end end index
+     * @param end   end index
      * @return if the fragment is valid, the fragment
      */
     DataMaRe_Fragment getFragment(int start, int end) {
@@ -481,6 +510,7 @@ public class DataMaRe {
 
     /**
      * Check if there are still fragments
+     *
      * @return if there are still fragments after updates
      */
     public boolean isProcessing() {
@@ -490,6 +520,7 @@ public class DataMaRe {
 
     /**
      * Getter for name
+     *
      * @return name
      */
     String getName() {
@@ -498,14 +529,16 @@ public class DataMaRe {
 
     /**
      * Getter for headers
+     *
      * @return headers
      */
-    String[] getHeaders() {
+    public String[] getHeaders() {
         return headers;
     }
 
     /**
      * Getter for types
+     *
      * @return return types
      */
     Class[] getTypes() {
@@ -514,8 +547,9 @@ public class DataMaRe {
 
     /**
      * Getter for data in a range
+     *
      * @param start start index
-     * @param end end index
+     * @param end   end index
      * @return Data in specified range
      */
     ArrayList<Record> getData(int start, int end) {
@@ -525,6 +559,7 @@ public class DataMaRe {
 
     /**
      * Get all data
+     *
      * @return data
      */
     ArrayList<Record> getData() {

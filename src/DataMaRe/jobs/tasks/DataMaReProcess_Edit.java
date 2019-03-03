@@ -16,6 +16,7 @@ public abstract class DataMaReProcess_Edit extends DataMaReProcess {
 
     /**
      * Get edited datamare
+     *
      * @return edited datamare
      */
     @Override
@@ -25,10 +26,11 @@ public abstract class DataMaReProcess_Edit extends DataMaReProcess {
 
     /**
      * Remove a row from datamare
+     *
      * @param row index of row to remove
      */
     protected void Remove(int row) {
-        System.err.println(dataMaRe.getRecord(row).view(prefix, format, row));
+        System.err.println(dataMaRe.getRecord(row).view(prefix, format, row, dataMaRe.getHeaders()));
         dataMaRe.removeRecord(row);
     }
 }

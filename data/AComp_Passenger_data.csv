@@ -1,4 +1,4 @@
-﻿Passenger ID,Flight Number,Origin,Destination,Departure Time,Flight Time
+﻿Passenger ID,Flight Number,Origin,Destination,Departure Time,Flight Duration
 String,String,String,String,Integer,Integer
 UES9151GS7,SQU6245R,DEN,FRA,1420564460,1049
 UES9151GS1,XXQ4064B,JFK,FRA,1420563917,802

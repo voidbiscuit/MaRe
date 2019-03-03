@@ -50,6 +50,7 @@ public class Main {
         // PROCESSING
 
         // Remove Null Values then waitx
+        dataMaRe.displayData();
         dataMaRe.processFragment(new RemoveNULL());
         dataMaRe.waitForFragments();
 
