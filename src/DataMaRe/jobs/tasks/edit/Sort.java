@@ -13,12 +13,19 @@ public class Sort extends DataMaReProcess_Edit {
         this.columnName = columnName;
     }
 
+    /**
+     * Set the datamare, and the column to sort by
+     * @param dataMaRe host datamare
+     */
     @Override
     public void setDataMaRe(DataMaRe dataMaRe) {
         super.setDataMaRe(dataMaRe);
         column = this.dataMaRe.getColumn(columnName);
     }
 
+    /**
+     * Override process, sort the data by column
+     */
     @Override
     protected void process() {
         super.process();

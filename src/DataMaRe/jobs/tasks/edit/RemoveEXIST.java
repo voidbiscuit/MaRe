@@ -11,6 +11,12 @@ public class RemoveEXIST extends DataMaReProcess_Edit {
     private int check_column;
     private ArrayList<Object> compare_values;
 
+    /**
+     * Remove values if they do not exist
+     * @param compare DataMaRe to compare to
+     * @param column_name_compare the name of the column to check existence of
+     * @param column_name local column to check
+     */
     public RemoveEXIST(DataMaRe compare, String column_name_compare, String column_name) {
         super();
         int compare_column = compare.getColumn(column_name_compare);
@@ -21,13 +27,19 @@ public class RemoveEXIST extends DataMaReProcess_Edit {
         compare_values = (ArrayList<Object>) compare_values.stream().distinct().collect(Collectors.toList());
     }
 
+    /**
+     * Update the datamare, and get the column
+     * @param dataMaRe Host Datamare
+     */
     @Override
     public void setDataMaRe(DataMaRe dataMaRe) {
         this.dataMaRe = dataMaRe;
         this.check_column = dataMaRe.getColumn(column_name);
     }
 
-
+    /**
+     * Override Process - Check if Data should exist
+     */
     @Override
     protected void process() {
         super.process();

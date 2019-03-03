@@ -10,6 +10,9 @@ public class RemoveFORMAT extends DataMaReProcess_Edit {
         this.formats = formats;
     }
 
+    /**
+     * Override process, check the format of the data with Regex
+     */
     @Override
     protected void process() {
         super.process();

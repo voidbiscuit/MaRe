@@ -8,6 +8,9 @@ public class RemoveNULL extends DataMaReProcess_Edit {
         super();
     }
 
+    /**
+     * Override process, check if the data is null
+     */
     @Override
     protected void process() {
         super.process();
